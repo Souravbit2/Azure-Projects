@@ -1,4 +1,4 @@
-<img width="377" height="244" alt="image" src="https://github.com/user-attachments/assets/082793a3-e652-4ef4-a0e0-f1e20dd38e45" />  # Resource-Locks
+# Resource-Locks
 Azure Resource Locks are a critical feature for preventing accidental deletion or modification of your valuable Azure resources. They provide an additional layer of protection on top of Azure Role-Based Access Control (RBAC) by overriding any user permissions, ensuring that specific actions are blocked regardless of the user's role.
 
 Here's how to create and manage Azure Resource Locks, covering the topics you requested:
