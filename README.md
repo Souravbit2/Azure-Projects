@@ -1,4 +1,4 @@
-# Resource-Locks
+<img width="377" height="244" alt="image" src="https://github.com/user-attachments/assets/082793a3-e652-4ef4-a0e0-f1e20dd38e45" />  # Resource-Locks
 Azure Resource Locks are a critical feature for preventing accidental deletion or modification of your valuable Azure resources. They provide an additional layer of protection on top of Azure Role-Based Access Control (RBAC) by overriding any user permissions, ensuring that specific actions are blocked regardless of the user's role.
 
 Here's how to create and manage Azure Resource Locks, covering the topics you requested:
@@ -35,47 +35,26 @@ A Delete Lock (CanNotDelete) prevents the deletion of a resource, resource group
       * **Notes (Optional):** Add any relevant notes explaining why the lock is being applied.
 5.  **Click "OK" or "Apply".**
 
-### Using Azure CLI
+### Created a delete lock for a VM
+I've navigated to the VM's blade and chose Locks under settings and created a DELETE lock. The lock should prevent deletion but allow other modifications.
 
-```bash
-az lock create \
-  --name <LockName> \
-  --lock-type CanNotDelete \
-  --resource-group <ResourceGroupName> \
-  --resource <ResourceName> \
-  --resource-type <ResourceType>
-```
+<img width="878" height="188" alt="image" src="https://github.com/user-attachments/assets/8bad2a66-cdf8-4c2f-a380-4b5b6b1a6e65" />
 
-**Example for a Virtual Machine:**
+When attempted to delete:
 
-```bash
-az lock create \
-  --name MyVMLockDelete \
-  --lock-type CanNotDelete \
-  --resource-group MyResourceGroup \
-  --resource MyVM \
-  --resource-type Microsoft.Compute/virtualMachines
-```
+<img width="408" height="261" alt="image" src="https://github.com/user-attachments/assets/5e2788fb-34f3-4411-b91d-278b91e5275e" />
 
-### Using Azure PowerShell
+When attempted to restart:
 
-```powershell
-New-AzResourceLock -LockName "<LockName>" `
-  -LockLevel CanNotDelete `
-  -ResourceGroupName "<ResourceGroupName>" `
-  -ResourceName "<ResourceName>" `
-  -ResourceType "<ResourceType>" -Force
-```
+<img width="410" height="111" alt="image" src="https://github.com/user-attachments/assets/bb42283c-84c4-459b-bd18-5329ce8d8953" />
 
-**Example for a Virtual Machine:**
+When attempted to deassociate the public ip address:
 
-```powershell
-New-AzResourceLock -LockName "MyVMLockDelete" `
-  -LockLevel CanNotDelete `
-  -ResourceGroupName "MyResourceGroup" `
-  -ResourceName "MyVM" `
-  -ResourceType "Microsoft.Compute/virtualMachines" -Force
-```
+Before: <img width="370" height="213" alt="image" src="https://github.com/user-attachments/assets/3b64dbac-a0d2-4b57-848a-f2564aacb027" />
+
+After dessociating:<img width="407" height="124" alt="image" src="https://github.com/user-attachments/assets/2777e27d-28c2-4482-aad8-87a9db2c12e0" /><img width="377" height="244" alt="image" src="https://github.com/user-attachments/assets/f39845ea-82a3-4ca2-a474-b3363907a784" />
+
+The dessociation actually happended and wans't prevented , meaning the delete lock is working as intended.
 
 ## How to Create a Read-Only Lock
 
@@ -92,45 +71,28 @@ A Read-Only Lock (ReadOnly) prevents both modification and deletion of a resourc
       * **Notes (Optional):** Add any relevant notes explaining why the lock is being applied.
 5.  **Click "OK" or "Apply".**
 
-### Using Azure CLI
+### Created a read-only lock for a VM
 
-```bash
-az lock create \
-  --name <LockName> \
-  --lock-type ReadOnly \
-  --resource-group <ResourceGroupName> \
-  --resource <ResourceName> \
-  --resource-type <ResourceType>
-```
+With the lock on the VM can't be restarted, stopped, deleted even the associated resource group also can't be deleted regardless at what level you set the lock (resource,resource group etc.). Below are some error recevied performing each action and it threw error each time complaining it couldn't delete the item.
 
-**Example for a Resource Group (all resources within it will be read-only):**
+when attempted to STOP the VM:
 
-```bash
-az lock create \
-  --name MyRGReadOnlyLock \
-  --lock-type ReadOnly \
-  --resource-group MyResourceGroup
-```
+<img width="385" height="169" alt="image" src="https://github.com/user-attachments/assets/1f8e884b-58e5-4133-91b5-d6318e2c85a7" />
 
-### Using Azure PowerShell
+when attempted to DELETE the VM:
 
-```powershell
-New-AzResourceLock -LockName "<LockName>" `
-  -LockLevel ReadOnly `
-  -ResourceGroupName "<ResourceGroupName>" `
-  -ResourceName "<ResourceName>" `
-  -ResourceType "<ResourceType>" -Force
-```
+<img width="402" height="234" alt="image" src="https://github.com/user-attachments/assets/bfebac3b-3993-4291-b7b5-62321c52337d" />
 
-**Example for a Virtual Machine:**
 
-```powershell
-New-AzResourceLock -LockName "MyVMLockReadOnly" `
-  -LockLevel ReadOnly `
-  -ResourceGroupName "MyResourceGroup" `
-  -ResourceName "MyVM" `
-  -ResourceType "Microsoft.Compute/virtualMachines" -Force
-```
+when attempted to RESTART the VM:
+
+<img width="401" height="200" alt="image" src="https://github.com/user-attachments/assets/1ce0d984-d4a9-45a1-9bf9-0f683b4c2412" />
+
+
+when attempted to delete the associated Resource Group of the VM:
+
+<img width="429" height="159" alt="image" src="https://github.com/user-attachments/assets/47d4c9b9-7aee-4411-b6c5-8d54f564aa49" />
+
 
 ## Removal of the Locks
 
@@ -190,4 +152,4 @@ When a Delete Lock (CanNotDelete) is applied to a Virtual Machine (VM) or its pa
   * If someone tries to delete `MyVM` from the Azure portal, they will receive an error message indicating that the resource is locked and cannot be deleted.
   * If someone tries to delete `MyResourceGroup` while `MyVM` (or the resource group itself) has a `CanNotDelete` lock, the entire deletion operation of the resource group will be blocked, even if other resources in the group are not locked.
 
-This mechanism ensures that critical virtual machines, which often host essential applications or data, are protected from accidental or unauthorized removal. Remember that a "Read-Only" lock on a VM would prevent both deletion and modification (e.g., stopping, starting, resizing) of the VM through the Azure control plane.
+**This mechanism ensures that critical virtual machines, which often host essential applications or data, are protected from accidental or unauthorized removal. Remember that a "Read-Only" lock on a VM would prevent both deletion and modification (e.g., stopping, starting, resizing) of the VM through the Azure control plane.**
