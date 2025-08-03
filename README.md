@@ -19,7 +19,7 @@ An Azure Function App is the hosting container for your individual functions. It
         * **Operating System:** Windows or Linux.
         * **Plan type:** This determines the hosting and scaling behavior. The **Consumption (Serverless)** plan is a good starting point as you only pay for the time your functions run.
 
-<img width="1299" height="419" alt="image" src="https://github.com/user-attachments/assets/2d637046-bc3c-4efc-b65f-dbc10238341f" />
+<img width="1270" height="318" alt="image" src="https://github.com/user-attachments/assets/4e3f3f37-c0f7-48cd-8295-c6b8f8d7618a" />
 
 
 
@@ -36,9 +36,9 @@ Once you have a Function App, you need to create a function inside it. An HTTP-t
     6.  Click **Create**. Once created , the functions we created should reflect in azure portal under the same azure app where to deployed the functions to.
 
 
-<img width="1022" height="230" alt="image" src="https://github.com/user-attachments/assets/d151bf51-dc03-49e9-9f43-63edf40cd434" />
+<img width="1275" height="242" alt="image" src="https://github.com/user-attachments/assets/16eaf813-e472-43c2-8a6b-55927bd874af" />
 
-<img width="1283" height="579" alt="image" src="https://github.com/user-attachments/assets/4d679911-5b7b-4946-9915-c75f77969e08" />
+<img width="1284" height="485" alt="image" src="https://github.com/user-attachments/assets/cc1eccab-1674-43e7-91e6-bc9e46d4459d" />
 
 ### 3. Implementing Azure functions and running them by retrieving their URL
 
@@ -51,7 +51,8 @@ After creating the function, you'll need to write the code. For in-portal develo
     4.  To get the URL, click **Get Function URL** at the top.
     5.  This will provide you with the full URL to call your function, including any required function keys if your authorization level is not `Anonymous`.
 
-<img width="1306" height="299" alt="image" src="https://github.com/user-attachments/assets/e9285bc5-aae5-4fb3-976d-dc1ba04b2156" />
+<<img width="1314" height="507" alt="image" src="https://github.com/user-attachments/assets/4d676756-55f4-48dc-b098-1d4815a11b8b" />
+
 
 ### 4. Run the Azure Function
 
@@ -61,8 +62,7 @@ There are a few ways to run and test your function.
     1.  On the **Code + Test** page, you can use the built-in **Test/Run** panel to send a test HTTP request. You can configure the HTTP method, headers, and request body.
     2.  Click **Run** to execute the function. The output and logs will be displayed in the panel.
 
-<img width="981" height="115" alt="image" src="https://github.com/user-attachments/assets/92550e52-52d3-4ae7-b104-85efcf73aa01" />
-
+<img width="1034" height="112" alt="image" src="https://github.com/user-attachments/assets/5e411499-1c6a-433c-a12c-213034f2f2ee" />
 
 * **Using the Function URL:**
     1.  Copy the Function URL you retrieved in the previous step.
@@ -70,8 +70,8 @@ There are a few ways to run and test your function.
     3.  If your function requires a name parameter in the query string, you would append it to the URL, for example: `https://<your_function_app_name>.azurewebsites.net/api/<your_function_name>?name=Azure`.
 
 Here , I passed my name as the name parameter in the query string and below is the output:
-<img width="835" height="120" alt="image" src="https://github.com/user-attachments/assets/1d134887-8f37-4330-87df-ffe727cbafe3" />
 
+<img width="811" height="120" alt="image" src="https://github.com/user-attachments/assets/d2061ad4-6155-4aa4-9347-1490dcaf0119" />
 
 A classic and simple "Hello World" function is the perfect starting point for testing out Azure Functions. It's a great way to understand the core concepts without getting bogged down in complex code.
 
