@@ -35,13 +35,13 @@ az network private-dns zone create \
 ## 🔗 Step 4: Link the VNet to the Private DNS Zone
 ```bash
 az network private-dns link vnet create \
-  --resource-group MyResourceGroup \
-  --zone-name myinternaldomain.local \
+  --resource-group MYPVTZONE \
+  --zone-name mypvt.zone \
   --name MyDNSLink \
   --virtual-network MyVNet \
   --registration-enabled true
 ```
-
+![alt text](image-3.png)
 > 💡 Enabling registration automatically adds A records for VMs in the VNet.
 
 ---
@@ -50,14 +50,14 @@ az network private-dns link vnet create \
 ```bash
 az vm create \
   --resource-group MyResourceGroup \
-  --name TestVM \
-  --vnet-name MyVNet \
-  --subnet MySubnet \
+  --name VM \
+  --vnet-name VM-vnet \
+  --subnet default \
   --image UbuntuLTS \
-  --admin-username azureuser \
+  --admin-username master \
   --generate-ssh-keys
 ```
-
+![alt text](image-4.png)
 ---
 
 ## 🧪 Step 6: Test DNS Resolution Inside the VM
@@ -66,18 +66,20 @@ az vm create \
 ```bash
 ssh azureuser@<public-ip-of-TestVM>
 ```
-
+![alt text](image-5.png)
 ### Use `nslookup` or `dig`
 ```bash
-nslookup TestVM.myinternaldomain.local
+nslookup VM.mypvt.zone
 ```
 Or:
 ```bash
-dig TestVM.myinternaldomain.local
+dig VM.mypvt.zone
 ```
+![alt text](image-6.png)
 
 You should see the internal IP returned by the DNS zone 🔍
 
+![alt text](image-7.png)
 ---
 
 ## ✅ Quick Validation Table
