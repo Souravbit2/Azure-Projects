@@ -1,5 +1,10 @@
+***PRIVATE ACCESS WITH SERVICE ENDPOINT AND PUBLIC ACCESS TO STORAGE ACCOUNT
+
+---
 # Planning
 A private subnet with a Storage service endpoint, storage firewall restricted to that subnet, NSGs for defense-in-depth, and two VMs to validate access paths. This architecture ensures traffic to Storage rides the Azure backbone with the subnet’s identity, while the storage firewall and NSGs collectively block everything else. One refinement: pair the storage firewall restriction with an explicit deny in the public subnet’s NSG to make the “blocked” behavior obvious at the network layer, not just at the service layer.
+
+<img width="765" height="460" alt="image" src="https://github.com/user-attachments/assets/b8aa0614-aec1-49a3-8b8d-6566c3948c8e" />
 
 ---
 
