@@ -159,6 +159,9 @@ az vm create -g $RG -n vm-public --image Ubuntu2204 --size Standard_B1s \
 
 # If you need direct management on vm-public, attach a public IP instead of "" and rely on the NSG allow-in-mgmt rule.
 ```
+![alt text](image-11.png)
+
+![alt text](image-12.png)
 
 Optional: Deploy Azure Bastion to manage both VMs without public IPs.
 
@@ -166,11 +169,15 @@ Optional: Deploy Azure Bastion to manage both VMs without public IPs.
 
 Assign the VM’s system-assigned managed identity “Storage Blob Data Reader” on the storage account.
 
+![alt text](image-13.png)
+
+
 ```bash
 PRIV_ID=$(az vm show -g $RG -n vm-private --query identity.principalId -o tsv)
 az role assignment create --assignee $PRIV_ID --role "Storage Blob Data Reader" \
   --scope $(az storage account show -g $RG -n $STG --query id -o tsv)
 ```
+![alt text](image-14.png)
 
 Create a test container and blob:
 
@@ -182,6 +189,7 @@ az storage container create --name test --account-name $STG --account-key $KEY
 echo "hello from sourav" > hello.txt
 az storage blob upload --account-name $STG --account-key $KEY -c test -f hello.txt -n hello.txt
 ```
+![alt text](image-15.png)
 
 ## 8) Validate connectivity
 
@@ -194,6 +202,7 @@ sudo apt-get update && sudo apt-get install -y azure-cli
 az login --identity
 az storage blob list --container-name test --account-name $STG --auth-mode login -o table
 ```
+![alt text](image-16.png)
 
 - From VM-public (public subnet):
   - Expect failure. Even DNS resolves the public endpoint, the storage firewall blocks because the subnet isn’t allowed, and the public NSG denies outbound to Storage.
@@ -203,12 +212,14 @@ az storage blob list --container-name test --account-name $STG --auth-mode login
 curl -I https://$STG.blob.core.windows.net/test/hello.txt
 # Expect 403 or connection blocked; NSG deny should prevent egress if configured.
 ```
+![alt text](image-17.png)
 
 Add a quick ping to confirm general internet works from vm-public (so failure is specific to storage):
 
 ```bash
 curl -I https://www.microsoft.com
 ```
+![alt text](image-18.png)
 
 ## 9) Observability and evidence
 
@@ -250,6 +261,3 @@ curl -I https://www.microsoft.com
 - Use Azure Bastion instead of public IPs for VM management.
 - Lock down outbound with Azure Firewall or a NAT gateway with FQDN tags if you need granular egress control.
 
----
-
-If you share your preferred resource names and whether you want Portal-only or CLI-first, I’ll tailor the commands and screenshots to match your lab exactly.
