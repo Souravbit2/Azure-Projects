@@ -8,28 +8,28 @@ Here’s how you can **create a Private DNS zone**, deploy a **VM within it**, a
 ```bash
 az group create --name MyResourceGroup --location eastus
 ```
-
+![alt text](image.png)
 ---
 
 ## 🌐 Step 2: Create a Virtual Network and Subnet
 ```bash
 az network vnet create \
-  --resource-group MyResourceGroup \
+  --resource-group MYPVTZONE \
   --name MyVNet \
   --address-prefix 10.0.0.0/16 \
   --subnet-name MySubnet \
   --subnet-prefix 10.0.1.0/24
 ```
-
+![alt text](image-1.png)
 ---
 
 ## 📛 Step 3: Create a Private DNS Zone
 ```bash
 az network private-dns zone create \
-  --resource-group MyResourceGroup \
-  --name myinternaldomain.local
+  --resource-group MYPVTZONE \
+  --name mypvt.zone
 ```
-
+![alt text](image-2.png)
 ---
 
 ## 🔗 Step 4: Link the VNet to the Private DNS Zone
