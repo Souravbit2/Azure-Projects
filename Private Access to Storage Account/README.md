@@ -1,9 +1,5 @@
-**Creating Azure action plan**
-
-The user needs a crisp, structured plan for deploying Azure configurations with service endpoints. I’ll include both Azure Portal and Az CLI commands, keeping the language clear and methodical. There will be sections: Summary, Architecture Overview, Prerequisites, and Action Plan steps with specific commands. I'll also mention prerequisites like NSG rules, testing, and rollback steps in a structured format. I'll touch on gotchas like the service endpoint flow, using SAS tokens, and adding the proper monitoring. I'll ensure clarity, while addressing the option of using the CLI versus Portal.
-# Assessment
-
-Your plan is solid: a private subnet with a Storage service endpoint, storage firewall restricted to that subnet, NSGs for defense-in-depth, and two VMs to validate access paths. This architecture ensures traffic to Storage rides the Azure backbone with the subnet’s identity, while the storage firewall and NSGs collectively block everything else. One refinement: pair the storage firewall restriction with an explicit deny in the public subnet’s NSG to make the “blocked” behavior obvious at the network layer, not just at the service layer.
+# Planning
+A private subnet with a Storage service endpoint, storage firewall restricted to that subnet, NSGs for defense-in-depth, and two VMs to validate access paths. This architecture ensures traffic to Storage rides the Azure backbone with the subnet’s identity, while the storage firewall and NSGs collectively block everything else. One refinement: pair the storage firewall restriction with an explicit deny in the public subnet’s NSG to make the “blocked” behavior obvious at the network layer, not just at the service layer.
 
 ---
 
@@ -59,7 +55,9 @@ az network vnet create -g $RG -n $VNET -l $LOC --address-prefixes 10.10.0.0/16 \
   --subnet-name $SUBNET_PRIV --subnet-prefix $PRIV_CIDR
 az network vnet subnet create -g $RG --vnet-name $VNET -n $SUBNET_PUB --address-prefixes $PUB_CIDR
 ```
+![alt text](image.png)
 
+![alt text](image-1.png)
 ## 2) Create Network Security Groups
 
 - Private NSG:
@@ -87,6 +85,9 @@ az network nsg rule create -g $RG --nsg-name nsg-public -n deny-out-storage --pr
   --direction Outbound --access Deny --protocol '*' --source-address-prefixes '*' \
   --source-port-ranges '*' --destination-address-prefixes Storage --destination-port-ranges '*'
 ```
+![alt text](image-2.png)
+
+![alt text](image-3.png)
 
 Associate NSGs to subnets:
 
@@ -94,13 +95,16 @@ Associate NSGs to subnets:
 az network vnet subnet update -g $RG --vnet-name $VNET -n $SUBNET_PRIV --network-security-group nsg-private
 az network vnet subnet update -g $RG --vnet-name $VNET -n $SUBNET_PUB --network-security-group nsg-public
 ```
+![alt text](image-4.png)
 
+![alt text](image-5.png)
 ## 3) Create the storage account
 
 ```bash
 az storage account create -g $RG -n $STG -l $LOC --sku Standard_LRS --kind StorageV2 \
   --https-only true --min-tls-version TLS1_2
 ```
+![alt text](image-6.png)
 
 ## 4) Enable service endpoint on the private subnet
 
@@ -108,6 +112,8 @@ az storage account create -g $RG -n $STG -l $LOC --sku Standard_LRS --kind Stora
 az network vnet subnet update -g $RG --vnet-name $VNET -n $SUBNET_PRIV \
   --service-endpoints Microsoft.Storage
 ```
+
+![alt text](image-7.png)
 
 Note: Do not enable on the public subnet.
 
@@ -126,7 +132,11 @@ SUBNET_PRIV_ID=$(az network vnet subnet show -g $RG --vnet-name $VNET -n $SUBNET
 
 az storage account network-rule add -g $RG -n $STG --vnet-name $VNET --subnet $SUBNET_PRIV
 ```
+![alt text](image-8.png)
 
+![alt text](image-9.png)
+
+![alt text](image-10.png)
 Optional hardening:
 - Disable “Allow Azure services” if not needed.
 - Consider service endpoint policies on the private subnet to allow only this storage account.
