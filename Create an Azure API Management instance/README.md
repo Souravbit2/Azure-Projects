@@ -61,3 +61,78 @@ Verify that the HttpTrigger1 Filesystem Logs in the Azure portal contain C# HTTP
 Test the HttpTrigger1 function by using the POST method, and then verify that the following response is displayed on the Output blade:
 
 Hello, Azure. This HTTP triggered function executed successfully.
+
+
+Create a product in apim54825675 by using the values in the following table. For any property that is not specified, use the default values.
+
+Property	Value
+Display name	Unlimited
+Description	Unlimited
+Create an API from an Azure resource named fa-54825675 in the apim54825675 API Management instance by using the fa-54825675 function app.
+Review the documentation on creating an API Management instance from an existing function app.
+
+Test fa-54825675 by using the GET method and a query parameter of name that has a value of firstname.
+Review the documentation on testing an API by using the Azure portal.
+
+The API should respond with a 200 OK message and the output shown in the following screenshot:
+
+The test response
+![alt text](image-4.png)
+
+Create an API named Test API in apim54825675 by using the HTTP API specification.
+Review the documentation on creating a test API.
+
+Add Test API to the Unlimited product in apim54825675, and then close the Unlimited page.
+Review the documentation on adding an API to an existing product.
+
+Add an operation to Test API by using the values in the following table. For any property that is not specified, use the default values.
+
+Property	Value
+Display name	Test call
+Method	GET
+URL	/test
+Add response	200 OK
+Representations CONTENT TYPE	application/json
+Representations SAMPLE	{ 'sampleField' : 'test' }
+Review the documentation on adding an operation to a test API.
+
+Add the Mock responses inbound policy to the Test call operation to set the API Management response to 200 OK.
+Review the documentation on adding an inbound policy to an operation in a test API.
+
+Test the TestAPI mock API response by using the Test call method.
+Review the documentation on testing a mock API response.
+
+The API should respond with a 200 OK message and the output shown in the following screenshot:
+![alt text](image-5.png)
+
+
+Secure a published API by using a product and subscription
+
+
+Hints Enabled
+
+No  Yes
+
+Create a product in apim54825675 by using the values in the following table. For any property that is not specified, use the default values.
+
+Property	Value
+Display name	Cloudslice
+Description	Test Cloudslice product
+Published	Selected
+APIs	fa-54825675
+Review the documentation on creating a product.
+
+Add a subscription named UserSubscription to apim54825675 for the admin1-54825675@cloudslice.onmicrosoft.com user that is scoped to the Cloudslice product.
+Review the documentation on creating a subscription.
+
+
+Congratulations, you completed the Can You Configure an API Management Solution? Challenge Lab.
+
+You have accomplished the following:
+
+Created an Azure API Management instance.
+Created an Azure function app.
+Created an HTTP trigger function in a function app.
+Created an API by importing an existing function app.
+Created a mock API in an API Management instance.
+Secured a published API by using a product and subscription.
