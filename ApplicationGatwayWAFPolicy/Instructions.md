@@ -13,17 +13,17 @@ az login
 az account set --subscription "<SUBSCRIPTION_ID_OR_NAME>"
 
 export LOCATION="eastus"
-export RESOURCE_GROUP="rg-appgw-waf-demo"
+export RESOURCE_GROUP="mylab"
 export VNET_NAME="vnet-appgw-waf"
 export APPGW_SUBNET="snet-appgw"
 export PRIVATE_ENDPOINT_SUBNET="snet-private-endpoints"
 export PUBLIC_IP_NAME="pip-appgw-waf"
 export WAF_POLICY_NAME="waf-policy"
 export APPGW_NAME="appgw-waf"
-export FUNCTION_APP_NAME="<globally-unique-function-app-name>"
+export FUNCTION_APP_NAME="myfunctionapp1234"
 export FUNCTION_HOST="${FUNCTION_APP_NAME}.azurewebsites.net"
-export STORAGE_ACCOUNT_NAME="<storage-account-name>"
-export USER_ASSIGNED_IDENTITY="<user-assigned-identity-name>"
+export STORAGE_ACCOUNT_NAME="mysg1234"
+export USER_ASSIGNED_IDENTITY="myuseridentity123"
 export DOMAIN_NAME="api.example.com"
 ```
 
