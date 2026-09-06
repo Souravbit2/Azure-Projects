@@ -23,7 +23,7 @@ export APPGW_NAME="appgw-waf"
 export FUNCTION_APP_NAME="myfunctionapp1234"
 export FUNCTION_HOST="${FUNCTION_APP_NAME}.azurewebsites.net"
 export STORAGE_ACCOUNT_NAME="mysg1234"
-export USER_ASSIGNED_IDENTITY="myuseridentity1234"
+export USER_ASSIGNED_IDENTITY="myfunctionapp1234"
 export DOMAIN_NAME="api.example.com"
 ```
 
@@ -88,6 +88,8 @@ az functionapp identity assign \
    --name "$FUNCTION_APP_NAME" \
    --identities "$IDENTITY_RESOURCE_ID"
 ```
+![alt text](image.png)
+![alt text](image-1.png)
 
 Grant the identity read access to blobs:
 
@@ -107,7 +109,7 @@ az role assignment create \
    --role "Storage Blob Data Reader" \
    --scope "$STORAGE_RESOURCE_ID"
 ```
-
+![alt text](image-2.png)
 ## 4. Create the WAF policy
 
 Start in Detection mode. Review the logs before switching to Prevention.
@@ -120,6 +122,7 @@ az network application-gateway waf-policy create \
    --type OWASP \
    --version 3.2 \
    --mode Detection
+![alt text](image-3.png)   
 
 az network application-gateway waf-policy policy-setting update \
    --resource-group "$RESOURCE_GROUP" \
@@ -170,12 +173,15 @@ az network application-gateway create \
    --frontend-port 80 \
    --http-settings-port 443 \
    --http-settings-protocol Https \
-   --backend-pool-name function-backend \
    --servers "$FUNCTION_HOST" \
    --waf-policy "$WAF_POLICY_ID" \
    --priority 100
 ```
-
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
+![alt text](image-8.png)
+![alt text](image-7.png)
 ## 6. Configure the HTTPS backend and host name
 
 The Function App requires its original host name in the backend request. This is important for TLS and App Service host-header routing.
