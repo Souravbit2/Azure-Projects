@@ -23,7 +23,7 @@ export APPGW_NAME="appgw-waf"
 export FUNCTION_APP_NAME="myfunctionapp1234"
 export FUNCTION_HOST="${FUNCTION_APP_NAME}.azurewebsites.net"
 export STORAGE_ACCOUNT_NAME="mysg1234"
-export USER_ASSIGNED_IDENTITY="myuseridentity123"
+export USER_ASSIGNED_IDENTITY="myuseridentity1234"
 export DOMAIN_NAME="api.example.com"
 ```
 
