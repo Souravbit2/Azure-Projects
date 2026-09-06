@@ -196,7 +196,7 @@ az network application-gateway http-settings update \
    --host-name "$FUNCTION_HOST" \
    --timeout 30
 ```
-
+![alt text](image-9.png)
 If the generated HTTP setting has a different name, list the settings and substitute the correct name:
 
 ```bash
@@ -216,7 +216,7 @@ az network application-gateway probe create \
    --gateway-name "$APPGW_NAME" \
    --name function-health \
    --protocol Https \
-   --host-name "$FUNCTION_HOST" \
+   --host-name-from-http-settings True \
    --path "/api/health" \
    --interval 30 \
    --timeout 10 \
@@ -228,7 +228,7 @@ az network application-gateway http-settings update \
    --name appGatewayBackendHttpSettings \
    --probe function-health
 ```
-
+![alt text](image-10.png)
 Check backend health:
 
 ```bash
