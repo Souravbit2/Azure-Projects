@@ -6,3 +6,8 @@ docker run -d \
   --shm-size="2gb" \
   --restart unless-stopped \
   ghcr.io/linuxserver/webtop:ubuntu-xfce
+
+
+docker ps
+docker rm 
+docker restart 
