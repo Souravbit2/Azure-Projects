@@ -1,39 +1,3 @@
-In Kubernetes, a NodePort is a service type that exposes your application to external traffic by opening a specific, static port on every worker node (VM) in your cluster. [1, 2] 
-Any external request sent to <Node-IP>:<NodePort> is automatically forwarded by the cluster to an internal service, which then routes it straight to your application pods. By default, Kubernetes allocates these ports from a designated, high-numbered range: 30000 to 32767. [2, 3] 
-------------------------------
-## The Differences Between Kubernetes Port Kinds
-Kubernetes handles traffic through several layered components. To understand how they differ, you can compare the four primary port types used when configuring a Deployment and a Service:
-
-| Port Kind | Where it Lives | What it Does |
-|---|---|---|
-| containerPort | Pod / Container | The actual port your application code listens on inside the container (e.g., a Spring Boot app listening on 8080). |
-| targetPort | Service (spec.ports) | The port on the pod that the Service should send traffic to. This usually matches the containerPort. |
-| port | Service (spec.ports) | The internal cluster port. Other pods inside the same cluster will use this port to talk to your service via its internal ClusterIP. |
-| nodePort | Service (spec.ports) | The external port opened on every single Kubernetes node. It allows traffic from outside the cluster to pass through the node's network interface. |
-
-## How Traffic Flows
-When an outside user accesses your app via a NodePort service, the traffic moves through the ports in this exact sequence:
-$$\text{External User} \longrightarrow \text{NodeIP}:\mathbf{nodePort} \longrightarrow \text{ServiceIP}:\mathbf{port} \longrightarrow \text{PodIP}:\mathbf{targetPort} \ (\mathbf{containerPort})$$ 
-## Quick Example Configuration
-Below is a standard manifest illustrating how these ports map to one another:
-
-apiVersion: v1kind: Servicemetadata:
-  name: web-servicespec:
-  type: NodePort
-  selector:
-    app: web-app
-  ports:
-    - protocol: TCP
-      nodePort: 31000   # Open to the outside world on all nodes
-      port: 80          # Accessible internally to other pods at http://web-service:80
-      targetPort: 8080  # Forwards traffic to the container's port 8080
----apiVersion: apps/v1kind: Deployment# ... (metadata and spec omitted for brevity)
-    spec:
-      containers:
-        - name: web-app
-          image: nginx
-          ports:
-            - containerPort: 8080 # The application is listening here
 From your kubectl get svc --all-namespaces output, the PORT(S) column follows this format:
 
 port:nodePort/protocol
@@ -396,7 +360,3 @@ Client Port -> Service Port -> TargetPort -> Container Port
 
 
 which is the final piece of the port mapping.
-
-
-
-
