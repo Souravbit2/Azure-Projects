@@ -37,19 +37,18 @@ Manage pod scheduling
 Apply the taint image=redis:NoExecute to the k8s-worker1 node.
 Increase the number of pods in the webserver Deployment to 6
 Verify that there are no pods scheduled to run on k8s-worker1.
-The webserver pods contain an nginx image. You need to ensure that only pods that contain a redis image are running on k8s-worker1. Which command should you run?
 
+The webserver pods contain an nginx image. You need to ensure that only pods that contain a redis image are running on k8s-worker1. Which command should you run?
 kubectl get nodes | grep redis
 kubectl get pods -o wide
 kubectl get nodes | grep k8s-worker1
+
 You plan to use the NoExecute taint effect to control pod scheduling on the k8s-worker1 node. Which statement accurately describes how the NoExecute taint effect controls pod scheduling?
 
 Prevents pod scheduling on a node.
 Allows pod scheduling on the tainted node.
 Evicts pods from a node if they cannot tolerate the taint.
 
-CKA.2-010: Can You Manage Kubernetes Cluster Resources? [Expert]
-14 Minutes Remaining 
 Schedule pods to a node
 
 Create a Deployment named database by using the https://raw.githubusercontent.com/LODSContent/ChallengeLabs_Resources/master/CKA/ssd.deployment.yaml Deployment definition file.
@@ -59,6 +58,7 @@ Which statement accurately describes the reason why the pods in the database Dep
 None of the cluster nodes contain the key/value pair label disktype: ssd used in the pod configuration.
 None of the cluster nodes have SSD drives.
 The cluster nodes will not tolerate the database pods.
+
 Update k8s-worker2 to contain the label diskType=ssd.
 Verify that the database pods are running on k8s-worker2.
 
