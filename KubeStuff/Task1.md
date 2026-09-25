@@ -62,21 +62,19 @@ The cluster nodes will not tolerate the database pods.
 Update k8s-worker2 to contain the label diskType=ssd.
 Verify that the database pods are running on k8s-worker2.
 
-CKA.2-010: Can You Manage Kubernetes Cluster Resources? [Expert]
-14 Minutes Remaining 
 Deploy a DaemonSet
 
 Create a DaemonSet named logger by using the definition file https://raw.githubusercontent.com/LODSContent/ChallengeLabs_Resources/master/CKA/logger.daemonset.yaml.
 Verify that you created the logger DaemonSet.
+![alt text](image.png)
+
 You need to display all of the DaemonSets that are running in the cluster. Which command should you use?
 
 kubectl get ds --all-namespaces
 kubectl get daemonsets
 kubectl get ds --all-daemonsets
+![alt text](image-1.png)
 
-
-CKA.2-010: Can You Manage Kubernetes Cluster Resources? [Expert]
-13 Minutes Remaining 
 Summary
 Congratulations, you have completed the Can You Manage Kubernetes Cluster Resources Challenge Lab.
 
