@@ -35,8 +35,12 @@ kubectl describe deployment webserver | grep pair
 Manage pod scheduling
 
 Apply the taint image=redis:NoExecute to the k8s-worker1 node.
+![alt text](image-6.png)
+![alt text](image-7.png)
 Increase the number of pods in the webserver Deployment to 6
+![alt text](image-5.png)
 Verify that there are no pods scheduled to run on k8s-worker1.
+![alt text](image-4.png)
 
 The webserver pods contain an nginx image. You need to ensure that only pods that contain a redis image are running on k8s-worker1. Which command should you run?
 kubectl get nodes | grep redis
@@ -49,10 +53,12 @@ Prevents pod scheduling on a node.
 Allows pod scheduling on the tainted node.
 Evicts pods from a node if they cannot tolerate the taint.
 
-Schedule pods to a node
+++++++Schedule pods to a node++++++
 
 Create a Deployment named database by using the https://raw.githubusercontent.com/LODSContent/ChallengeLabs_Resources/master/CKA/ssd.deployment.yaml Deployment definition file.
 Verify that you created the database deployment.
+
+![alt text](image-3.png)
 Which statement accurately describes the reason why the pods in the database Deployment are in a pending state?
 
 None of the cluster nodes contain the key/value pair label disktype: ssd used in the pod configuration.
@@ -61,8 +67,9 @@ The cluster nodes will not tolerate the database pods.
 
 Update k8s-worker2 to contain the label diskType=ssd.
 Verify that the database pods are running on k8s-worker2.
+![alt text](image-2.png)
 
-Deploy a DaemonSet
+++++++Deploy a DaemonSet+++++++
 
 Create a DaemonSet named logger by using the definition file https://raw.githubusercontent.com/LODSContent/ChallengeLabs_Resources/master/CKA/logger.daemonset.yaml.
 Verify that you created the logger DaemonSet.
