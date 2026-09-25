@@ -24,8 +24,13 @@ Port 30001
 
 
 Create a pod named intranet that contains an nginx image.
+![alt text](image-8.png)
 Add the label department=marketing to the intranet pod.
+![alt text](image-9.png)
+![alt text](image-10.png)
 Add the annotation Version="Beta" to the webserver deployment.
+![alt text](image-11.png)
+![alt text](image-12.png)
 You need to determine the Selector key/value pair for the webserver Deployment. Which command should you use?
 
 kubectl get selector webserver
