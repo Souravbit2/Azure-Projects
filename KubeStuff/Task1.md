@@ -1,27 +1,19 @@
-CKA.2-010: Can You Manage Kubernetes Cluster Resources? [Expert]
-15 Minutes Remaining 
-Create a Kubernetes Service
-
-You have been automatically signed in to WS2019 as the administrator.
-
-Open the MobaXterm desktop application.
-
-Establish a new SSH session to the k8s-master1 virtual machine as the administrator using Passw0rd! as the password, and then when prompted to save the password, select No.
-
-Select the Type Text icon to enter the associated text into the terminal.
-
-You will perform all cluster operations in this challenge on the k8s-master1 node.
+Can You Manage Kubernetes Cluster Resources?
 
 Create a Deployment named webserver by using the https://raw.githubusercontent.com/LODSContent/ChallengeLabs_Resources/master/CKA/webserver.nginx.deployment.yaml Deployment definition file.
+![alt text](image-13.png)
 Verify that the webserver Deployment pods are running.
+![alt text](image-14.png)
 Create a ClusterIP Service that internally exposes the webserver deployment on a static IP address.
 Display the services that are running in the cluster, and then verify that the webserver Deployment is exposed on port 80/TCP.
+![alt text](image-15.png)
+![alt text](image-16.png)
 Create a NodePort Service named npservice that will externally expose the pods in the webserver Deployment by using the https://raw.githubusercontent.com/LODSContent/ChallengeLabs_Resources/master/CKA/npservice.yaml NodePort definition file.
 Verify that the npservice NodePort Service is running.
+![alt text](image-17.png)
+
 There are two port numbers defined by the NodePort Service. Which port number can you use to externally access the webserver application?
-
 Port 30001
-
 
 Create a pod named intranet that contains an nginx image.
 ![alt text](image-8.png)
