@@ -21,12 +21,7 @@ Verify that the npservice NodePort Service is running.
 There are two port numbers defined by the NodePort Service. Which port number can you use to externally access the webserver application?
 
 Port 30001
-Port 443
-Port 80
 
-CKA.2-010: Can You Manage Kubernetes Cluster Resources? [Expert]
-14 Minutes Remaining 
-Label a resource
 
 Create a pod named intranet that contains an nginx image.
 Add the label department=marketing to the intranet pod.
@@ -37,8 +32,6 @@ kubectl get selector webserver
 kubectl describe deployment webserver
 kubectl describe deployment webserver | grep pair
 
-CKA.2-010: Can You Manage Kubernetes Cluster Resources? [Expert]
-14 Minutes Remaining 
 Manage pod scheduling
 
 Apply the taint image=redis:NoExecute to the k8s-worker1 node.
