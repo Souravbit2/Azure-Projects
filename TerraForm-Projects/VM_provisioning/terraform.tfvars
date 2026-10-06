@@ -1,0 +1,10 @@
+az_location                         = "australiacentral"
+az_storage_account_name             = "mysa124" # this value has to be globally unique or else the creation will fail
+az_storage_account_type             = "Standard_LRS"
+az_storage_account_replication_type = "LRS"
+az_subscription_id                  = "d045bf0a-ef50-499e-bdea-e0b68a56269f"
+az_container_access_type            = "blob"
+az_virtualnetwork_adress_space      = ["10.0.0.0/16"]
+az_resource_group_name              = "learn-1304f952-edd8-46b2-9393-298b2bce998a" # to be manually given from azure
+az_virtualnetwork_name              = "myVnet"
+az_vnet_subnet_name                 = "mysubnet"
